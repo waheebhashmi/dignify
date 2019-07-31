@@ -54,6 +54,26 @@ app.use(function(req, res, next) {
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 
+app.get('/registerPage2.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'registerPage2Passenger.html'));
+});
+
+
+app.get('/loginButtonPage.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'loginButtonPage.html'));
+});
+
+
+
+app.get('/registerButtonPage.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'registerButtonPage.html'));
+});
+
+app.get('/contactPage.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'contactPage.html'));
+});
+
+
 const PORT = process.env.PORT || 3300;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));

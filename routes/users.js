@@ -87,7 +87,32 @@ router.post('/loginPage.html', (req, res, next) => {
     failureFlash: true
   })(req, res, next);
 });
+router.get('/', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
+});
+router.get('/dignifyuse.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
+});
 
+
+router.get('/registerPage2.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'registerPage2Passenger.html'));
+});
+
+
+router.get('/loginButtonPage.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'loginButtonPage.html'));
+});
+
+
+
+router.get('/registerButtonPage.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'registerButtonPage.html'));
+});
+
+router.get('/contactPage.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'contactPage.html'));
+});
 // Logout
 router.get('/logout', (req, res) => {
   req.logout();
