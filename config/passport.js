@@ -1,9 +1,10 @@
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
+const path = require('path');
 const bcrypt = require('bcryptjs');
 
 // Load User model
-const User = require('../models/User');
+const User = require(path.join(__dirname, '../models', 'user.js'));;
 
 module.exports = function(passport) {
   passport.use(
