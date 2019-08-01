@@ -78,7 +78,7 @@ app.get('/registerButtonPage.html', function (req, res, next) {
 res.sendFile(path.join(__dirname, '../views', 'registerButtonPage.html'));
 });
 
-router.get('/contactPage.html', function (req, res, next) {
+app.get('/contactPage.html', function (req, res, next) {
 res.sendFile(path.join(__dirname, '../views', 'contactPage.html'));
 });
 
