@@ -73,7 +73,6 @@ res.sendFile(path.join(__dirname, '../views', 'loginButtonPage.html'));
 });
 
 
-
 app.get('/registerButtonPage.html', function (req, res, next) {
 res.sendFile(path.join(__dirname, '../views', 'registerButtonPage.html'));
 });
