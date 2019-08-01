@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 // Welcome Page
