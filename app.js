@@ -54,7 +54,33 @@ app.use(function(req, res, next) {
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 
+router.get('/', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
+});
 
+router.get('/dignifyuse.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
+});
+
+
+router.get('/registerPage2.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'registerPage2Passenger.html'));
+});
+
+
+router.get('/loginButtonPage.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'loginButtonPage.html'));
+});
+
+
+
+router.get('/registerButtonPage.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'registerButtonPage.html'));
+});
+
+router.get('/contactPage.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'contactPage.html'));
+});
 
 app.listen(process.env.PORT || 3300, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
