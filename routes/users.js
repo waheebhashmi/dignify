@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const path = require('path');
 const passport = require('passport');
 // Load User model
-const User = require('../models/User');
+const User = require(path.join(__dirname, '../models', 'user.js'));
 const { forwardAuthenticated } = require('../config/auth');
 
 // Login Page
