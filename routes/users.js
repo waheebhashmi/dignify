@@ -22,7 +22,6 @@ router.post('/registerPage.html', (req, res) => {
     errors.push({ msg: 'Please enter all fields' });
   }
 
- 
 
   if (password.length < 6) {
     errors.push({ msg: 'Password must be at least 6 characters' });
@@ -87,9 +86,8 @@ router.post('/loginPage.html', (req, res, next) => {
     failureFlash: true
   })(req, res, next);
 });
-router.get('/', function (req, res, next) {
-res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
-});
+
+
 router.get('/dignifyuse.html', function (req, res, next) {
 res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
 });
