@@ -73,7 +73,7 @@ ul li a.contact:hover{
 		
 	}
 	.sec1image{
-		background-image: url('/assets/sky.jpg');
+		background-image: url("https://media-public.canva.com/MADGxxhKksk/4/screen_2x.jpg");
 		min-height:100%;
 		height: 400px;
 	}
