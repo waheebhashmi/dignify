@@ -81,15 +81,25 @@ router.post('/registerPage.html', (req, res) => {
 // Login
 router.post('/loginPage.html', (req, res, next) => {
   passport.authenticate('local', {
-    successRedirect: path.join(__dirname, '../views', 'dignifyuse.html'),
+    successRedirect: '/users/dignifyuseLogout.html',
     failureRedirect: '/users/loginPage.html',
     failureFlash: true
   })(req, res, next);
 });
 
+// Logout
+router.get('/logoutPage.html', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are logged out');
+  res.redirect('/users/loginPage.html');
+});
+
 
 router.get('/dignifyuse.html', function (req, res, next) {
 res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
+});
+router.get('/dignifyuseLogout.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'dignifyuseLogout.html'));
 });
 
 
@@ -111,11 +121,6 @@ res.sendFile(path.join(__dirname, '../views', 'registerButtonPage.html'));
 router.get('/contactPage.html', function (req, res, next) {
 res.sendFile(path.join(__dirname, '../views', 'contactPage.html'));
 });
-// Logout
-router.get('/logout', (req, res) => {
-  req.logout();
-  req.flash('success_msg', 'You are logged out');
-  res.redirect('/users/loginPage.html');
-});
+
 
 module.exports = router;
