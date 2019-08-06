@@ -1,5 +1,8 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+const exphbs = require('express-handlebars');
+const nodemailer = require('nodemailer');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -22,8 +25,60 @@ mongoose.connect('mongodb+srv://wave:ukzC3Ff9xTWdYLFL@cluster0-y2dty.mongodb.net
     });
 
 
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
-// Express body parser
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.post('/users/send', (req, res) => {
+  const output = `
+    <p>You have a new contact request</p>
+    <h3>Contact Details</h3>
+    <ul>  
+      
+      <li>Email: ${req.body.email}</li>
+    
+    </ul>
+    <h3>Message</h3>
+    <p>${req.body.message}</p>
+  `;
+
+
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // use SSL
+  auth: {
+        user: 'dignify.site@gmail.com', // generated ethereal user
+        pass: 'hashmi123'  // generated ethereal password
+    }
+  });
+
+  // setup email data with unicode symbols
+  let mailOptions = {
+      from: 'dignify.site@gmail.com', // sender address
+      to: 'waheebhashmi@gmail.com', // list of receivers
+      subject: 'Dignify Contact Request', // Subject line
+      text: 'hello', // plain text body
+      html: output // html body
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error);
+      }
+      console.log('Message sent: %s', info.messageId);   
+      console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+      res.sendFile(path.join(__dirname, '../p2/views', 'contactPage.html'), {msg:'Email has been sent'});
+  });
+  
+});
+
+
 app.use(express.urlencoded({ extended: true }));
 
 // Express session
@@ -61,6 +116,7 @@ res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
 app.get('/dignifyuse.html', function (req, res, next) {
 res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
 });
+
 
 
 app.get('/registerPage2.html', function (req, res, next) {
