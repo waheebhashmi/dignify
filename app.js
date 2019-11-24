@@ -31,7 +31,7 @@ require('./config/passport')(passport);
 const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://wave:ukzC3Ff9xTWdYLFL@cluster0-y2dty.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://wave:S2kfua067Sv75Dt6@cluster0-y2dty.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
     mongoose.connection.once('open', function(){
       console.log('Conection has been made!');
     }).on('error', function(error){
@@ -86,6 +86,10 @@ app.get('/dignifyuse.html', function (req, res, next) {
 res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
 });
 
+
+app.get('/geo.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'geo.html'));
+});
 
 
 app.get('/registerPage2.html', function (req, res, next) {

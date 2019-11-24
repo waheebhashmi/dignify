@@ -19,10 +19,10 @@ router.get('/registerPage.html', forwardAuthenticated, (req, res) => res.sendFil
 
 // Register
 router.post('/registerPage.html', (req, res) => {
-  const { name1, username, phonenumber, email, password } = req.body;
+  const { name1, username, phonenumber, date, time, email, password } = req.body;
   let errors = [];
 
-  if (!name1 || !email || !username || !phonenumber || !password ) {
+  if (!name1 || !email || !username || !date || !time || !phonenumber || !password ) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -35,6 +35,8 @@ router.post('/registerPage.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../views', 'registerPage.html'), {
       name1,
       username,
+      date,
+      time,
       phonenumber,
       email,
       password
@@ -48,6 +50,8 @@ router.post('/registerPage.html', (req, res) => {
         
           name1,
           username,
+          date,
+          time,
           phonenumber,
           email,
           password
@@ -56,6 +60,8 @@ router.post('/registerPage.html', (req, res) => {
         const newUser = new User({
           name1,
           email,
+          date,
+          time,
           phonenumber,
           username,
           password
@@ -92,11 +98,32 @@ router.post('/loginPage.html', (req, res, next) => {
 });
 
 // Logout
-router.get('/logoutPage.html', (req, res) => {
+router.get('/.html', function (req, res, next) {
   req.logout();
   req.flash('success_msg', 'You are logged out');
-  res.redirect('/users/loginPage.html');
+  res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
 });
+
+  router.get("/:id", function(req, res) {
+  User.findById(req.params.id, function(err, foundUser) {
+    if(err) {
+      req.flash("error", "Something went wrong.");
+      return res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
+    }
+    User.find().where('id').equals(foundUser._id).exec(function(err, user) {
+      if(err) {
+        req.flash("error", "Something went wrong.");
+        return res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
+      }
+  
+     res.json(foundUser); 
+   
+
+    })
+  });
+});
+ 
+
 
 
 router.post('/send', (req, res) => {
@@ -181,7 +208,7 @@ router.post('/forgot.html', function(req, res, next) {
         subject: 'Node.js Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+          'http://' + req.headers.host + '/users/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
@@ -191,18 +218,20 @@ router.post('/forgot.html', function(req, res, next) {
     }
   ], function(err) {
     if (err) return next(err);
-    res.sendFile(path.join(__dirname, '../views', 'forgot.html'));;
-  });
-});
+    res.sendFile(path.join(__dirname, '../views', 'forgot.html'));
+ 
 
 //1 start
 router.get('/reset/:token', function(req, res) {
   
-    
-   res.sendFile(path.join(__dirname, '../views', 'reset.html', {
-  
-    }));
+     User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+    if (!user) {
+      req.flash('error', 'Password reset token is invalid or has expired.');
+      return res.sendFile(path.join(__dirname, '../views', 'reset.html'))
+    }
+    res.sendFile(path.join(__dirname, '../views', 'reset.html'), {token: req.params.token});
   });
+});
 
 router.post('/reset/:token', function(req, res) {
   async.waterfall([
@@ -253,10 +282,8 @@ router.post('/reset/:token', function(req, res) {
   res.sendFile(path.join(__dirname, '../views', 'loginPage.html'))
   });
 });
-
-
-//2 end
-
+ });
+});
 
 
 router.get('/forgot.html', function (req, res) {
@@ -270,15 +297,21 @@ res.sendFile(path.join(__dirname, '../views', 'dignifyuse.html'));
 router.get('/dignifyuseLogout.html', function (req, res, next) {
 res.sendFile(path.join(__dirname, '../views', 'dignifyuseLogout.html'));
 });
-router.get('/contact.handlebars', function (req, res, next) {
-res.sendFile(path.join(__dirname, '../views', 'contact.handlebars'));
+router.get('/dignifyuse2.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'dignifyuse2.html'));
 });
 // Expr
-
-
+router.get('/mapee.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'mapee.html'));
+});
 router.get('/registerPage2.html', function (req, res, next) {
 res.sendFile(path.join(__dirname, '../views', 'registerPage2Passenger.html'));
 });
+
+router.get('/geo.html', function (req, res, next) {
+res.sendFile(path.join(__dirname, '../views', 'geo.html'));
+});
+
 
 
 router.get('/loginButtonPage.html', function (req, res, next) {
