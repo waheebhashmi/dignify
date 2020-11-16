@@ -9,6 +9,8 @@
 - Back end server development and database storage with Node.js and MongoDB 
 - Implemented user registration and authentication using Passport.js resulting in secure user experience
 
+![alt text](https://i.imgur.com/X6Zauw7.png)
+
 ### Usage
 
 ```sh
