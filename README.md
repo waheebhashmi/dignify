@@ -1,8 +1,13 @@
-# Node.js & Passport Login
+# What is Dignify?
+- Allows people to ride with volunteers to their common mutual place of worship
+- Users can register, choose from two options: volunteer or passenger
+- If you are a volunteer, you will be responsible for picking up passengers on the way towards your place of worship at a time agreed upon by both parties
+- To ensure security, no personal information is shared until both parties have accepted requests
 
-This is a user login and registration app using Node.js, Express, Passport, Mongoose, EJS and some other packages.
-
-### Version: 2.0.0
+# Specifications
+- Developed with frontend languages such as CSS framework Bootstrap with HTML and Javascript 
+- Back end server development and database storage with Node.js and MongoDB 
+- Implemented user registration and authentication using Passport.js resulting in secure user experience
 
 ### Usage
 
@@ -18,6 +23,3 @@ $ npm run dev
 # Visit http://localhost:5000
 ```
 
-### MongoDB
-
-Open "config/keys.js" and add your MongoDB URI, local or Atlas
